@@ -49,7 +49,7 @@ accountSchema.methods.createToken = function(){
     .then(account => {
       return jsonWebToken.sign({
         tokenSeed: account.tokenSeed
-      }, process.env.SOMETHING_SECRET)
+      }, process.env.SECRET_THINGS)
     });
 };
 
