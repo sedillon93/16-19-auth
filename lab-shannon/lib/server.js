@@ -11,7 +11,9 @@ let httpServer = null;
 mongoose.Promise = Promise;
 
 app.use(require(`./logger-middleware`));
+
 app.use(require(`../route/auth-router`));
+app.use(require(`../route/friend-router`));
 
 app.all(`*`, (request, response) => {
   logger.log(`info`, `Returning a 404 status from * route`);
