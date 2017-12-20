@@ -6,7 +6,7 @@ const Account = require(`../../model/account`);
 const accountMock = module.exports = {};
 
 accountMock.create = () => {
-  let mock;
+  let mock = {};
   mock.request = {
     username: faker.internet.userName(),
     email: faker.internet.email(),
