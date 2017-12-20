@@ -11,6 +11,15 @@ const bearerAuthMiddleware = require(`../lib/bearer-auth-middleware`);
 const friendRouter = module.exports = new Router();
 
 // using bearerAuthMiddleware here as middleware; it's 'next' will pass on to the next middleware, which will continue down until we hit the callback
-friendRouter.get(`/friends`, bearerAuthMiddleware, jsonParser, (request, response, next) => {
-  
+friendRouter.post(`/friends`, bearerAuthMiddleware, jsonParser, (request, response, next) => {
+  if(!request.account){   // we should be getting an account back from bearerAuthMiddleware; if not, there's a problem
+    return next(new httpErrors(404, `NOT FOUND`));
+  }
+
+  return new Friend({
+    ...request.body,
+    account: request.account._id
+  }).save()
+    .then(friend => response.json(friend))
+    .catch(next);
 });
