@@ -12,5 +12,8 @@ authRouter.post(`/signup`, (request, response, next) => {
     throw new httpErrors(400, `Username, email, and password are required in order to create an account`);
   }
 
-
+  Account.create(request.body.username, request.body.email, request.body.password)
+    .then(user => user.createToken())
+    .then(token => response.json({token}))
+    .catch(next);
 });

@@ -6,7 +6,7 @@ const bcrypt = require(`bcrypt`);
 const jsonWebToken = require(`jsonwebtoken`);
 const httpErrors = require(`http-errors`);
 
-const accountSchema({
+const accountSchema = mongoose.Schema({
   passwordHash: {
     type: String,
     required: true,
@@ -43,13 +43,13 @@ accountSchema.methods.verifyPassword = function(password){
 };
 
 accountSchema.methods.createToken = function(){
-  this.tokenSeed = crypto.randomBytes(64).toString(hex);
+  this.tokenSeed = crypto.randomBytes(64).toString('hex');
 
   return this.save()
     .then(account => {
       return jsonWebToken.sign({
-        tokenSeed: account.tokenSeed
-      }, process.env.SECRET_THINGS)
+        tokenSeed: account.tokenSeed,
+      }, process.env.SECRET_THINGS);   // what does this line do? (the .sign functionality)
     });
 };
 
@@ -60,11 +60,11 @@ Account.create = (username, email, password) => {
   return bcrypt.hash(password, HASH_SALT_ROUNDS)
     .then(passwordHash => {
       let tokenSeed = crypto.randomBytes(64).toString('hext');
-      return new Account({  // the lines below are from ES6; they create a key by the name of the value and assign the value of that variable to the key. So 'username' is like {username: the value of the username variable}
+      return new Account({  // the lines below are from ES6; they create a key by the name of the value and assign the value of that variable to the key that was just made. So 'username' is like {username: the value of the username variable}
         username,
         email,
         password,
-        tokenSeed
+        tokenSeed,
       }).save();
     });
 };
