@@ -1,7 +1,7 @@
 'use strict';
 
 const faker = require(`faker`);
-const Account = require(`../model/account`);
+const Account = require(`../../model/account`);
 
 const accountMock = module.exports = {};
 
@@ -28,4 +28,4 @@ accountMock.create = () => {
     });
 };
 
-accountMock.remove();
+accountMock.remove = () => Account.remove({});

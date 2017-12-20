@@ -35,9 +35,9 @@ const accountSchema = mongoose.Schema({
 accountSchema.methods.verifyPassword = function(password){
   return bcrypt.compare(password, this.passwordHash)
     .then(response => {
-      if(!response){
+      if(!response)
         throw new httpErrors(401, `Authentication error: incorrect username or password`);
-      }
+
       return this;
     });
 };
@@ -59,11 +59,11 @@ Account.create = (username, email, password) => {
   const HASH_SALT_ROUNDS = 8;
   return bcrypt.hash(password, HASH_SALT_ROUNDS)
     .then(passwordHash => {
-      let tokenSeed = crypto.randomBytes(64).toString('hext');
+      let tokenSeed = crypto.randomBytes(64).toString('hex');
       return new Account({  // the lines below are from ES6; they create a key by the name of the value and assign the value of that variable to the key that was just made. So 'username' is like {username: the value of the username variable}
         username,
         email,
-        password,
+        passwordHash,
         tokenSeed,
       }).save();
     });

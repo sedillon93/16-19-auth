@@ -7,7 +7,7 @@ const Account = require(`../model/account`);
 
 const authRouter = module.exports = new Router();
 
-authRouter.post(`/signup`, (request, response, next) => {
+authRouter.post('/signup', jsonParser, (request, response, next) => {
   if(!request.body.username || !request.body.email || !request.body.password){
     throw new httpErrors(400, `Username, email, and password are required in order to create an account`);
   }
