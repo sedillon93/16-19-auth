@@ -6,7 +6,7 @@ const server = require(`../lib/server`);
 const accountMockFactory = require(`./lib/account-mock-factory`);
 const friendMockFactory = require(`./lib/friend-mock-factory`);
 
-const apiURL = `http://localhost:${process.env.PORT}`;
+const apiURL = `http://localhost:${process.env.PORT}/friends`;
 
 describe(`FRIEND-AUTH`, () => {
   beforeAll(server.start);
@@ -20,7 +20,7 @@ describe(`FRIEND-AUTH`, () => {
       return accountMockFactory.create()
         .then(mock => {
           accountMock = mock;
-          return superagent.post(`${apiURL}/friends`)
+          return superagent.post(`${apiURL}`)
             .set('Authorization', `Bearer ${accountMock.token}`)
             .send({
               firstName: 'Sarah',
@@ -38,7 +38,7 @@ describe(`FRIEND-AUTH`, () => {
     });
 
     test(`POST should respond with a 400 status if there is a bad request (no authorization header)`, () => {
-      return superagent.post(`${apiURL}/friends`)
+      return superagent.post(`${apiURL}`)
         .send({
           firstName: 'Sarah',
           age: 22,
@@ -52,7 +52,7 @@ describe(`FRIEND-AUTH`, () => {
     });
 
     test(`POST should respond with a 401 status if there is a problem with the token (missing or incorrect)`, () => {
-      return superagent.post(`${apiURL}/friends`)
+      return superagent.post(`${apiURL}`)
         .set(`Authorization`, `Bearer notAToken`)
         .send({
           firstName: 'Sarah',
@@ -72,7 +72,7 @@ describe(`FRIEND-AUTH`, () => {
         return friendMockFactory.create()
           .then(mock => {
             tempMock = mock;
-            return superagent.get(`${apiURL}/friends/${tempMock.friend._id}`)
+            return superagent.get(`${apiURL}/${tempMock.friend._id}`)
               .set('Authorization', `Bearer ${tempMock.account.token}`);
           })
           .then(response => {
@@ -85,7 +85,7 @@ describe(`FRIEND-AUTH`, () => {
         return friendMockFactory.create()
           .then(mock => {
             tempMock = mock;
-            return superagent.get(`${apiURL}/friends/notAnId`)
+            return superagent.get(`${apiURL}/notAnId`)
               .set('Authorization', `Bearer ${tempMock.account.token}`);
           })
           .then(Promise.reject)
@@ -93,7 +93,19 @@ describe(`FRIEND-AUTH`, () => {
             expect(response.status).toEqual(404);
           })
       });
-    //   test(`401 request`, () => {});
+      test(`GET should respond with a 401 status if there is a problem with the token (incorrect or missing)`, () => {
+        let tempMock = null;
+        return friendMockFactory.create()
+          .then(mock => {
+            tempMock = mock;
+            return superagent.get(`${apiURL}/${tempMock.friend._id}`)
+              .set(`Authorization`, `Bearer badToken`)
+          })
+          .then(Promise.reject)
+          .catch(response => {
+            expect(response.status).toEqual(401);
+          })
+      });
     });
   });
 });

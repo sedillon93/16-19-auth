@@ -9,7 +9,7 @@ const friendMockFactory = module.exports = {};
 friendMockFactory.create = () => {
   let resultMock = {};
   return accountMockFactory.create()
-    .then(accountMock => {
+    .then(accountMock => {    // this is an object with request and account properties
       resultMock.account = accountMock;
 
       return new Friend({
