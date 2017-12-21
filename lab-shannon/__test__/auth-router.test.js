@@ -65,5 +65,8 @@ describe(`AUTH-ROUTER`, () => {
           expect(response.body.token).toBeTruthy();
         });
     });
+
+    test(`400 GET test`, () => {});
+    test(`401 GET test`, () => {});
   });
 });
