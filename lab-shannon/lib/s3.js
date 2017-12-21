@@ -1,7 +1,7 @@
 'use strict';
 
 const aws = require(`aws-sdk`);
-const fs = require(`fs-extra`);
+const fsExtra = require(`fs-extra`);
 const amazonS3 = new aws.S3();
 
 const s3 = module.exports = {};
@@ -11,16 +11,16 @@ s3.upload = (path, key) => {
     Bucket: process.env.AWS_BUCKET,
     Key: key,
     ACL: 'public-read',
-    Body: fs.createReadStream(path),
+    Body: fsExtra.createReadStream(path),
   };
   return amazonS3.upload(uploadOptions)
     .promise()
     .then(response => {
-      return fs.remove(path)
-        .then(() => response.location)
+      return fsExtra.remove(path)
+        .then(() => response.location)    // the location is the exact address of the file
     })
     .catch(error => {
-      return fs.remove(path)
+      return fsExtra.remove(path)
         .then(() => Promise.reject(error))
     });
 };

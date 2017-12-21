@@ -14,6 +14,7 @@ app.use(require(`./logger-middleware`));
 
 app.use(require(`../route/auth-router`));
 app.use(require(`../route/friend-router`));
+app.use(require(`../route/photo-router`));
 
 app.all(`*`, (request, response) => {
   logger.log(`info`, `Returning a 404 status from * route`);
