@@ -91,7 +91,7 @@ describe(`FRIEND-AUTH`, () => {
           .then(Promise.reject)
           .catch(response => {
             expect(response.status).toEqual(404);
-          })
+          });
       });
       test(`GET should respond with a 401 status if there is a problem with the token (incorrect or missing)`, () => {
         let tempMock = null;
@@ -99,12 +99,12 @@ describe(`FRIEND-AUTH`, () => {
           .then(mock => {
             tempMock = mock;
             return superagent.get(`${apiURL}/${tempMock.friend._id}`)
-              .set(`Authorization`, `Bearer badToken`)
+              .set(`Authorization`, `Bearer badToken`);
           })
           .then(Promise.reject)
           .catch(response => {
             expect(response.status).toEqual(401);
-          })
+          });
       });
     });
   });
