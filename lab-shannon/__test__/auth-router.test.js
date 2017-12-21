@@ -83,6 +83,6 @@ describe(`AUTH-ROUTER`, () => {
         .catch(response => {
           expect(response.status).toEqual(404);
         })
-    });   //send authorization header with nonsense username/password
+    });
   });
 });
