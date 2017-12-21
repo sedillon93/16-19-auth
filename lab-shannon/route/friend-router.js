@@ -23,3 +23,7 @@ friendRouter.post(`/friends`, bearerAuthMiddleware, jsonParser, (request, respon
     .then(friend => response.json(friend))
     .catch(next);
 });
+
+friendRouter.get(`/friends/:id`, bearerAuthMiddleware, (request, response, next) => {
+  
+})
