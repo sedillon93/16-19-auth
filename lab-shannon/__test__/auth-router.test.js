@@ -54,7 +54,7 @@ describe(`AUTH-ROUTER`, () => {
   });
 
   describe(`GET /login`, () => {
-    test(`GET for login route should return a 200 status and a token if there are no errors`, () => {
+    test(`GET should return a 200 status and a token if there are no errors`, () => {
       return accountMockFactory.create()
         .then(mock => {
           return superagent.get(`${apiURL}/login`)
@@ -66,7 +66,16 @@ describe(`AUTH-ROUTER`, () => {
         });
     });
 
-    test(`400 GET test`, () => {});
-    test(`401 GET test`, () => {});
+    test(`GET should return a 400 status if `, () => {    // don't send an authorization header
+      return accountMockFactory.create()
+        .then(mock => {
+          return superagent.get(`${apiURL}/login`)
+        })
+        .then(Promise.reject)
+        .catch(response => {
+          expect(response.status).toEqual(400);
+        });
+    });
+    test(`401 GET test`, () => {});   //send authorization header with nonsense username/password
   });
 });
