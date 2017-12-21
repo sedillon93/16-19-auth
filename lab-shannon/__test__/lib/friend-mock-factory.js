@@ -10,14 +10,14 @@ friendMockFactory.create = () => {
   let resultMock = {};
   return accountMockFactory.create()
     .then(accountMock => {
-      resultMock.accountMock = accountMock;
+      resultMock.account = accountMock;
 
       return new Friend({
         firstName: faker.name.firstName(),
         age: faker.random.number(),
         occupation: faker.name.jobTitle(),
         favoriteThings: faker.lorem.words(10).split(' '),
-        account: accountMock._id,   // we can use accountMock here because we are still in scope with the response from accountMockFactory.create()
+        account: accountMock.account._id,   // we can use accountMock here because we are still in scope with the response from accountMockFactory.create()
       }).save();
     })
     .then(friend => {

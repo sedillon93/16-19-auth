@@ -35,37 +35,51 @@ describe(`FRIEND-AUTH`, () => {
               expect(response.body.occupation).toEqual('nurse');
             });
         });
-      test(`POST should respond with a 400 status if there is a bad request (no authorization header)`, () => {
-        return superagent.post(`${apiURL}/friends`)
-          .send({
-            firstName: 'Sarah',
-            age: 22,
-            occupation: 'nurse',
-            favoriteThings: [`Skiing`, `Reading`, `Theatre`],
-          })
-          .then(Promise.reject)
-          .catch(response => {
-            expect(response.status).toEqual(400);
-          });
-      });
-      test(`POST should respond with a 401 status if there is a problem with the token (missing or incorrect)`, () => {
-        return superagent.post(`${apiURL}/friends`)
-          .set(`Authorization`, `Bearer notAToken`)
-          .send({
-            firstName: 'Sarah',
-            age: 22,
-            occupation: 'nurse',
-            favoriteThings: [`Skiing`, `Reading`, `Theatre`],
-          })
-          .then(Promise.reject)
-          .catch(response => {
-            expect(response.status).toEqual(401);
-          });
-      });
+    });
+
+    test(`POST should respond with a 400 status if there is a bad request (no authorization header)`, () => {
+      return superagent.post(`${apiURL}/friends`)
+        .send({
+          firstName: 'Sarah',
+          age: 22,
+          occupation: 'nurse',
+          favoriteThings: [`Skiing`, `Reading`, `Theatre`],
+        })
+        .then(Promise.reject)
+        .catch(response => {
+          expect(response.status).toEqual(400);
+        });
+    });
+
+    test(`POST should respond with a 401 status if there is a problem with the token (missing or incorrect)`, () => {
+      return superagent.post(`${apiURL}/friends`)
+        .set(`Authorization`, `Bearer notAToken`)
+        .send({
+          firstName: 'Sarah',
+          age: 22,
+          occupation: 'nurse',
+          favoriteThings: [`Skiing`, `Reading`, `Theatre`],
+        })
+        .then(Promise.reject)
+        .catch(response => {
+          expect(response.status).toEqual(401);
+        });
     });
 
     describe(`GET /friends/:id`, () => {
-      test(`GET should respond with a 200 status if there are no errors`, () => {});
+      test.only(`GET should respond with a 200 status if there are no errors`, () => {
+        let tempMock = null;
+        return friendMockFactory.create()
+          .then(mock => {
+            tempMock = mock;
+            return superagent.get(`${apiURL}/friends/${tempMock.friend._id}`)
+              .set('Authorization', `Bearer ${tempMock.account.token}`);
+          })
+          .then(response => {
+            expect(response.status).toEqual(200);
+            expect(response.body.firstName).toEqual(`${tempMock.friend.firstName}`);
+          });
+      });
     //   test(`404 request`, () => {});
     //   test(`401 request`, () => {});
     });

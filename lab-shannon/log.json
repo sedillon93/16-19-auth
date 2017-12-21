@@ -1,11 +1,25 @@
-{"level":"info","message":"Server is listening on port 3000","timestamp":"2017-12-21T16:50:25.238Z"}
-{"level":"info","message":"Turning the server off","timestamp":"2017-12-21T16:50:25.243Z"}
-{"level":"info","message":"Server is listening on port 3000","timestamp":"2017-12-21T16:50:51.073Z"}
-{"level":"info","message":"Processing : POST on : /friends","timestamp":"2017-12-21T16:50:51.137Z"}
-{"level":"info","message":"Turning the server off","timestamp":"2017-12-21T16:50:51.173Z"}
-{"level":"info","message":"Server is listening on port 3000","timestamp":"2017-12-21T16:55:30.930Z"}
-{"level":"info","message":"Processing : POST on : /friends","timestamp":"2017-12-21T16:55:30.994Z"}
-{"level":"info","message":"Turning the server off","timestamp":"2017-12-21T16:55:31.024Z"}
-{"level":"info","message":"Server is listening on port 3000","timestamp":"2017-12-21T17:00:47.397Z"}
-{"level":"info","message":"Processing : POST on : /friends","timestamp":"2017-12-21T17:00:47.460Z"}
-{"level":"info","message":"Turning the server off","timestamp":"2017-12-21T17:00:47.492Z"}
+{"level":"info","message":"Server is listening on port 3000","timestamp":"2017-12-21T22:03:27.074Z"}
+{"level":"info","message":"Turning the server off","timestamp":"2017-12-21T22:03:27.157Z"}
+{"level":"info","message":"Server is listening on port 3000","timestamp":"2017-12-21T22:03:53.992Z"}
+{"level":"info","message":"Turning the server off","timestamp":"2017-12-21T22:03:54.054Z"}
+{"level":"info","message":"Server is listening on port 3000","timestamp":"2017-12-21T22:07:36.176Z"}
+{"level":"info","message":"Turning the server off","timestamp":"2017-12-21T22:07:36.235Z"}
+{"level":"info","message":"Server is listening on port 3000","timestamp":"2017-12-21T22:08:03.102Z"}
+{"level":"info","message":"Turning the server off","timestamp":"2017-12-21T22:08:03.164Z"}
+{"level":"info","message":"Server is listening on port 3000","timestamp":"2017-12-21T22:10:19.811Z"}
+{"level":"info","message":"Turning the server off","timestamp":"2017-12-21T22:10:19.878Z"}
+{"level":"info","message":"Server is listening on port 3000","timestamp":"2017-12-21T22:10:45.422Z"}
+{"level":"info","message":"Turning the server off","timestamp":"2017-12-21T22:10:45.486Z"}
+{"level":"info","message":"Server is listening on port 3000","timestamp":"2017-12-21T22:11:38.629Z"}
+{"level":"info","message":"Turning the server off","timestamp":"2017-12-21T22:11:38.693Z"}
+{"level":"info","message":"Server is listening on port 3000","timestamp":"2017-12-21T22:16:21.558Z"}
+{"level":"info","message":"Turning the server off","timestamp":"2017-12-21T22:16:21.625Z"}
+{"level":"info","message":"Server is listening on port 3000","timestamp":"2017-12-21T22:20:27.402Z"}
+{"level":"info","message":"Processing : GET on : /friends/5a3c33abe2472c1e70bbceed","timestamp":"2017-12-21T22:20:27.471Z"}
+{"level":"info","message":"Turning the server off","timestamp":"2017-12-21T22:20:27.488Z"}
+{"level":"info","message":"Server is listening on port 3000","timestamp":"2017-12-21T22:21:20.251Z"}
+{"level":"info","message":"Processing : GET on : /friends/5a3c33e07cad2a1e81570678","timestamp":"2017-12-21T22:21:20.321Z"}
+{"level":"info","message":"Turning the server off","timestamp":"2017-12-21T22:21:20.338Z"}
+{"level":"info","message":"Server is listening on port 3000","timestamp":"2017-12-21T22:21:32.983Z"}
+{"level":"info","message":"Processing : GET on : /friends/5a3c33ed8033691e89047df0","timestamp":"2017-12-21T22:21:33.052Z"}
+{"level":"info","message":"Turning the server off","timestamp":"2017-12-21T22:21:33.086Z"}
