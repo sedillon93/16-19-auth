@@ -67,7 +67,7 @@ describe(`FRIEND-AUTH`, () => {
     });
 
     describe(`GET /friends/:id`, () => {
-      test.only(`GET should respond with a 200 status if there are no errors`, () => {
+      test(`GET should respond with a 200 status if there are no errors`, () => {
         let tempMock = null;
         return friendMockFactory.create()
           .then(mock => {
@@ -80,7 +80,19 @@ describe(`FRIEND-AUTH`, () => {
             expect(response.body.firstName).toEqual(`${tempMock.friend.firstName}`);
           });
       });
-    //   test(`404 request`, () => {});
+      test(`GET should respond with a 404 status if the id is incorrect`, () => {
+        let tempMock = null;
+        return friendMockFactory.create()
+          .then(mock => {
+            tempMock = mock;
+            return superagent.get(`${apiURL}/friends/notAnId`)
+              .set('Authorization', `Bearer ${tempMock.account.token}`);
+          })
+          .then(Promise.reject)
+          .catch(response => {
+            expect(response.status).toEqual(404);
+          })
+      });
     //   test(`401 request`, () => {});
     });
   });
