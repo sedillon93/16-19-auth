@@ -82,7 +82,7 @@ describe(`AUTH-ROUTER`, () => {
         .then(Promise.reject)
         .catch(response => {
           expect(response.status).toEqual(404);
-        })
+        });
     });
   });
 });
