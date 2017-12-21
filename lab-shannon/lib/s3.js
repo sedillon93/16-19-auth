@@ -7,7 +7,7 @@ const amazonS3 = new aws.S3();
 const s3 = module.exports = {};
 
 s3.upload = (path, key) => {
-  let loadOptions = {
+  let uploadOptions = {
     Bucket: process.env.AWS_BUCKET,
     Key: key,
     ACL: 'public-read',
@@ -17,11 +17,11 @@ s3.upload = (path, key) => {
     .promise()
     .then(response => {
       return fsExtra.remove(path)
-        .then(() => response.location)    // the location is the exact address of the file
+        .then(() => response.location);    // the location is the exact address of the file
     })
     .catch(error => {
       return fsExtra.remove(path)
-        .then(() => Promise.reject(error))
+        .then(() => Promise.reject(error));
     });
 };
 
