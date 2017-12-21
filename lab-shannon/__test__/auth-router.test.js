@@ -66,16 +66,23 @@ describe(`AUTH-ROUTER`, () => {
         });
     });
 
-    test(`GET should return a 400 status if `, () => {    // don't send an authorization header
-      return accountMockFactory.create()
-        .then(mock => {
-          return superagent.get(`${apiURL}/login`)
-        })
+    test(`GET should return a 400 status if there is no authorization header`, () => {
+      return superagent.get(`${apiURL}/login`)
         .then(Promise.reject)
         .catch(response => {
           expect(response.status).toEqual(400);
         });
     });
-    test(`401 GET test`, () => {});   //send authorization header with nonsense username/password
+    test(`GET should return a 404 status if the username or password do not exist`, () => {
+      return accountMockFactory.create()
+        .then(mock => {
+          return superagent.get(`${apiURL}/login`)
+            .auth('fakename', 'fakepassword');
+        })
+        .then(Promise.reject)
+        .catch(response => {
+          expect(response.status).toEqual(404);
+        })
+    });   //send authorization header with nonsense username/password
   });
 });
