@@ -12,7 +12,7 @@ describe(`AUTH-ROUTER`, () => {
   afterAll(server.stop);
   afterEach(accountMockFactory.remove);
 
-  describe(`POST requests`, () => {
+  describe(`POST /signup`, () => {
     test(`Creating an account with POST request should return 200 status and a token if no errors are present`, () => {
       return superagent.post(`${apiURL}/signup`)
       .send({
@@ -53,7 +53,7 @@ describe(`AUTH-ROUTER`, () => {
     });
   });
 
-  describe(`GET request for login`, () => {
+  describe(`GET /login`, () => {
     test(`GET for login route should return a 200 status and a token if there are no errors`, () => {
       return accountMockFactory.create()
         .then(mock => {
