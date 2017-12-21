@@ -64,10 +64,10 @@ describe(`FRIEND-AUTH`, () => {
       });
     });
 
-    // describe(`POST /friends/:id`, () => {
-    //   test(`200 request`, () => {});
+    describe(`GET /friends/:id`, () => {
+      test(`GET should respond with a 200 status if there are no errors`, () => {});
     //   test(`404 request`, () => {});
     //   test(`401 request`, () => {});
-    // });
+    });
   });
 });
