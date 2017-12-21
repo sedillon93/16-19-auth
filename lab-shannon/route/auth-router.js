@@ -21,7 +21,7 @@ authRouter.post('/signup', jsonParser, (request, response, next) => {
 });
 
 authRouter.get(`/login`, basicAuthMiddleware, (request, response, next) => {
-  if(!account){
+  if(!request.account){
     return next(new httpErrors(404, `BAD REQUEST`));
   }
 

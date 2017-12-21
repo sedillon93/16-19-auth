@@ -13,7 +13,7 @@ module.exports = (request, response, next) => {
   }
   let stringAuthHeader = new Buffer(base64AuthHeader, `base64`).toString();
 
-  let [username, password] = stringAuthHeader.split(':')  // ES6 syntax to create two variables at the same time from the array resulting from the split;
+  let [username, password] = stringAuthHeader.split(':');  // ES6 syntax to create two variables at the same time from the array resulting from the split;
   if(!username || !password){
     return next(new httpErrors(400, `BAD REQUEST: username and password are required`));
   }
@@ -30,4 +30,4 @@ module.exports = (request, response, next) => {
       return next();
     })
     .catch(next);
-}
+};

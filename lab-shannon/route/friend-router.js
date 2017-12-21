@@ -18,7 +18,7 @@ friendRouter.post(`/friends`, bearerAuthMiddleware, jsonParser, (request, respon
 
   return new Friend({
     ...request.body,
-    account: request.account._id
+    account: request.account._id,
   }).save()
     .then(friend => response.json(friend))
     .catch(next);
