@@ -4,6 +4,7 @@ const {Router} = require(`express`);
 const jsonParser = require(`body-parser`).json();
 const httpErrors = require(`http-errors`);
 const Friend = require(`../model/friend`);
+const Account = require(`../model/account`);
 
 // accessing the friend of a specific account, so need Bearer authorization so we know you're allowed to do this
 const bearerAuthMiddleware = require(`../lib/bearer-auth-middleware`);
@@ -25,5 +26,11 @@ friendRouter.post(`/friends`, bearerAuthMiddleware, jsonParser, (request, respon
 });
 
 friendRouter.get(`/friends/:id`, bearerAuthMiddleware, (request, response, next) => {
-  
+  if(!request.account){
+    return next(new httpErrors(404, `BAD REQUEST`));
+  }
+
+  Account.findById(request.params.id){
+
+  }
 })
