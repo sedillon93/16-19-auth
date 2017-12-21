@@ -35,7 +35,19 @@ describe(`FRIEND-AUTH`, () => {
               expect(response.body.occupation).toEqual('nurse');
             });
         });
-      // test(`400 request`, () => {});
+      test(`GET should respond with a 400 status if there is a bad request (no authorization headers or missing token)`, () => {
+        return superagent.post(`${apiURL}/friends`)
+          .send({
+            firstName: 'Sarah',
+            age: 22,
+            occupation: 'nurse',
+            favoriteThings: [`Skiing`, `Reading`, `Theatre`],
+          })
+          .then(Promise.reject)
+          .catch(response => {
+            expect(response.status).toEqual(400);
+          });
+      });
       // test(`401 request`, () => {});
     });
 

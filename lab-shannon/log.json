@@ -3,3 +3,6 @@
 {"level":"info","message":"Server is listening on port 3000","timestamp":"2017-12-21T16:50:51.073Z"}
 {"level":"info","message":"Processing : POST on : /friends","timestamp":"2017-12-21T16:50:51.137Z"}
 {"level":"info","message":"Turning the server off","timestamp":"2017-12-21T16:50:51.173Z"}
+{"level":"info","message":"Server is listening on port 3000","timestamp":"2017-12-21T16:55:30.930Z"}
+{"level":"info","message":"Processing : POST on : /friends","timestamp":"2017-12-21T16:55:30.994Z"}
+{"level":"info","message":"Turning the server off","timestamp":"2017-12-21T16:55:31.024Z"}
