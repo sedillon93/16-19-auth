@@ -29,20 +29,15 @@ describe(`Photo router`, () => {
         });
     });
 
-    test(`POST should respond with a 400 status if there is a bad request`, () => {
-      let mockAccount = null;
-      return accountMockFactory.create()
-        .then(account => {
-          mockAccount = account;
-          return superagent.post(`${apiURL}`)
-            .field(`title`, `friend photo`)
-            .attach(`photo`, `${__dirname}/asset/bestfriends.jpg`)
-            .then(Promise.reject)
-            .catch(response => {
-              expect(response.status).toEqual(400);
-            });
+    test(`POST should respond with a 400 status if there is no authorization header`, () => {
+      return superagent.post(`${apiURL}`)
+        .field(`title`, `friend photo`)
+        .attach(`photo`, `${__dirname}/asset/bestfriends.jpg`)
+        .then(Promise.reject)
+        .catch(response => {
+          expect(response.status).toEqual(400);
         });
-    });
+      });
 
     test(`POST should respond with a 401 status if there is a problem with the token (missing or incorrect)`, () => {
       return superagent.post(`${apiURL}`)
@@ -53,7 +48,7 @@ describe(`Photo router`, () => {
         .catch(response => {
           expect(response.status).toEqual(401);
         });
-    });
+      });
   });
 
   describe(`GET /photos/:id`, () => {
@@ -67,6 +62,21 @@ describe(`Photo router`, () => {
         })
         .then(response => {
           expect(response.status).toEqual(200);
+        });
+    });
+
+    test(`GET should respond with a 404 status if there is no authorization header`, () => {
+      let tempMock = null;
+      return photoMockFactory.create()
+        .then(mock => {
+          tempMock = mock;
+          return superagent.get(`${apiURL}/`)
+          .field(`title`, `friend photo`)
+          .attach(`photo`, `${__dirname}/asset/bestfriends.jpg`)
+          .then(Promise.reject)
+          .catch(response => {
+            expect(response.status).toEqual(404);
+          });
         });
     });
   });
