@@ -120,5 +120,19 @@ describe(`Photo router`, () => {
             });
         });
     });
+
+    test(`DELETE should respond with a 401 status if there was a problem with the token (missing or incorrect)`, () => {
+      let tempMock = null;
+      return photoMockFactory.create()
+        .then(mock => {
+          tempMock = mock;
+          return superagent.delete(`${apiURL}/${tempMock.photo._id}`)
+            .set(`Authorization`, `Bearer notAThing`)
+            .then(Promise.reject)
+            .catch(response => {
+              expect(response.status).toEqual(401);
+            });
+        });
+    });
   });
 });
