@@ -16,7 +16,7 @@ photoMockFactory.create = () => {
         title: faker.lorem.word(3),
         people: faker.lorem.words(5).split(' '),
         account: accountMock.account._id,
-        url: faker.random.url(),
+        url: faker.internet.url(),
       }).save();
     })
     .then(photo => {

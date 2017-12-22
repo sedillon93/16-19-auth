@@ -6,7 +6,7 @@ const server = require(`../lib/server`);
 const accountMockFactory = require(`./lib/account-mock-factory`);
 const photoMockFactory = require(`./lib/photo-mock-factory`);
 
-const apiURL = `http://localhost:${process.env.PORT}/photos`
+const apiURL = `http://localhost:${process.env.PORT}/photos`;
 
 describe(`Photo router`, () => {
   beforeAll(server.start);
@@ -63,7 +63,7 @@ describe(`Photo router`, () => {
         .then(mock => {
           tempMock = mock;
           return superagent.get(`${apiURL}/${mock.photo._id}`)
-            .set(`Authorization`, `Bearer ${tempMock.account.token}`)
+            .set(`Authorization`, `Bearer ${tempMock.account.token}`);
         })
         .then(response => {
           expect(response.status).toEqual(200);
