@@ -59,11 +59,15 @@ describe(`Photo router`, () => {
   describe(`GET /photos/:id`, () => {
     test(`GET should respond with a 200 status and a photo if there are no errors`, () => {
       let tempMock = null;
-      return accountMockFactory.create()
+      return photoMockFactory.create()
         .then(mock => {
           tempMock = mock;
-          return superagent.get(`${apiURL}/${mock._id}`)
+          return superagent.get(`${apiURL}/${mock.photo._id}`)
+            .set(`Authorization`, `Bearer ${tempMock.account.token}`)
         })
+        .then(response => {
+          expect(response.status).toEqual(200);
+        });
     });
   });
 });

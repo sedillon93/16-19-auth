@@ -13,7 +13,7 @@ photoMockFactory.create = () => {
     .then(accountMock => {
       mock.account = accountMock;
       return new Photo({
-        title: faker.random.boolean(),
+        title: faker.lorem.word(3),
         people: faker.lorem.words(5).split(' '),
         account: accountMock.account._id,
         url: faker.random.url(),
