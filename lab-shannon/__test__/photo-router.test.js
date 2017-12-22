@@ -6,7 +6,7 @@ const server = require(`../lib/server`);
 const accountMockFactory = require(`./lib/account-mock-factory`);
 const photoMockFactory = require(`./lib/photo-mock-factory`);
 
-const apiUrl = `http://localhost:${process.env.PORT}/photos`
+const apiURL = `http://localhost:${process.env.PORT}/photos`
 
 describe(`Photo router`, () => {
   beforeAll(server.start);
@@ -19,7 +19,7 @@ describe(`Photo router`, () => {
       return accountMockFactory.create()
         .then(account => {
           mockAccount = account;
-          return superagent.post(`${apiUrl}`)
+          return superagent.post(`${apiURL}`)
             .set(`Authorization`, `Bearer ${account.token}`)
             .field(`title`, `friend photo`)
             .attach(`photo`, `${__dirname}/asset/bestfriends.jpg`)
@@ -34,14 +34,25 @@ describe(`Photo router`, () => {
       return accountMockFactory.create()
         .then(account => {
           mockAccount = account;
-          return superagent.post(`${apiUrl}`)
+          return superagent.post(`${apiURL}`)
             .field(`title`, `friend photo`)
             .attach(`photo`, `${__dirname}/asset/bestfriends.jpg`)
             .then(Promise.reject)
             .catch(response => {
               expect(response.status).toEqual(400);
             });
-        })
-    })
+        });
+    });
+
+    test(`POST should respond with a 401 status if there is a problem with the token (missing or incorrect)`, () => {
+      return superagent.post(`${apiURL}`)
+        .set(`Authorization`, `Bearer notAToken`)
+        .field(`title`, `friend photo`)
+        .attach(`photo`, `${__dirname}/asset/bestfriends.jpg`)
+        .then(Promise.reject)
+        .catch(response => {
+          expect(response.status).toEqual(401);
+        });
+    });
   });
 });
