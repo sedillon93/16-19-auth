@@ -79,5 +79,21 @@ describe(`Photo router`, () => {
           });
         });
     });
+
+    test(`GET should respond with a 401 status if there is a problem with the token (missing or incorret)`, () => {
+      let tempMock = null;
+      return photoMockFactory.create()
+        .then(mock => {
+          tempMock = mock;
+          return superagent.get(`${apiURL}/${tempMock.account._id}`)
+            .set(`Authorization`, `Bearer thisIsABadToken`)
+            .field(`title`, `friend photo`)
+            .attach(`photo`, `${__dirname}/asset/bestfriends.jpg`)
+            .then(Promise.reject)
+            .catch(response => {
+              expect(response.status).toEqual(401);
+            });
+        });
+    });
   });
 });
