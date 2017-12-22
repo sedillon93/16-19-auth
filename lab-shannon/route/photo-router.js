@@ -13,10 +13,11 @@ const photoRouter = module.exports = new Router();
 
 photoRouter.post(`/photos`, bearerAuthMiddleware, upload.any(), (request, response, next) => {  //.any() means multer will create an array of files and store it in request.files
   if(!request.account){
+    return next(httpErrors(404, `NOT FOUND`));
+  }
+  if(!request.body.title || request.files[0].fieldname !== 'photo' || request.files.length > 1){
     return next(httpErrors(400, `BAD REQUEST`));
   }
-  if(request.files.length > 1){}
-
 
   let file = request.files[0];
   let key = `${file.filename}.${file.originalname}`;   // remember, these 'file.' are referring to the file we are assigning as request.files[0]

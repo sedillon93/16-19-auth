@@ -13,6 +13,19 @@ describe(`Photo router`, () => {
   afterEach();
 
   describe(`POST /photos`, () => {
-    test()
+    test(`POST should respond with a 200 status and a photo if there are no errors`, () => {
+      let mockAccount = null;
+      return accountMockFactory.create()
+        .then(account => {
+          mockAccount = account;
+          return superagent.post(`${apiUrl}/photos`)
+            .set(`Authorization`, `Bearer ${account.token}`)
+            .field(`title`, `friend photo`)
+            .attach(`photo`, `${__dirname}/asset/bestfriends.jpg`)
+            .then(response => {
+              expect(response.status).toEqual(200);
+            });
+        });
+    });
   });
 });

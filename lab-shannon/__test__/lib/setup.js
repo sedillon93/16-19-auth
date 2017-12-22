@@ -20,7 +20,7 @@ awsSDKMock.mock(`S3`, `upload`, (params, callback) => {
     return callback(new Error(`_ERROR_ wrong bucket`));
   }
   if(params.ACL !== 'public-read'){
-    return callback(new Error(`_ERROR_ ACL should be public-read`))
+    return callback(new Error(`_ERROR_ ACL should be public-read`));
   }
 
   callback(null, {Location: faker.internet.url()});   // this is like the traditional (error, data) callback function
