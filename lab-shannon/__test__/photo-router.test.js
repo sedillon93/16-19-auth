@@ -28,5 +28,20 @@ describe(`Photo router`, () => {
             });
         });
     });
+
+    test(`POST should respond with a 400 status if there is a bad request`, () => {
+      let mockAccount = null;
+      return accountMockFactory.create()
+        .then(account => {
+          mockAccount = account;
+          return superagent.post(`${apiUrl}`)
+            .field(`title`, `friend photo`)
+            .attach(`photo`, `${__dirname}/asset/bestfriends.jpg`)
+            .then(Promise.reject)
+            .catch(response => {
+              expect(response.status).toEqual(400);
+            });
+        })
+    })
   });
 });
