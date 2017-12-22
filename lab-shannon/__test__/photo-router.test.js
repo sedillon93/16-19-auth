@@ -106,5 +106,19 @@ describe(`Photo router`, () => {
             });
         });
     });
+
+    test(`DELETE should respond with a 404 status if the id is bad`, () => {
+      let tempMock = null;
+      return photoMockFactory.create()
+        .then(mock => {
+          tempMock = mock;
+          return superagent.delete(`${apiURL}/badId`)
+            .set(`Authorization`, `Bearer ${tempMock.account.token}`)
+            .then(Promise.reject)
+            .catch(response => {
+              expect(response.status).toEqual(404);
+            });
+        });
+    });
   });
 });
