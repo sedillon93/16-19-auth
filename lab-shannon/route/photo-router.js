@@ -57,5 +57,12 @@ photoRouter.delete(`/photos/:id`, bearerAuthMiddleware, (request, response, next
   }
 
   return Photo.findByIdAndRemove(request.params.id)
-    .then()
+    .then(photo => {
+      if(!photo){
+        throw new httpErrors(404, `404: No photo found`);
+      }
+
+      return response.sendStatus(204);
+    })
+    .catch(next);
 });
