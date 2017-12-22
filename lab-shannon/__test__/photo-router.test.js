@@ -62,7 +62,7 @@ describe(`Photo router`, () => {
       return accountMockFactory.create()
         .then(mock => {
           tempMock = mock;
-          return superagent.get(`${apiURL}/mock._id`)
+          return superagent.get(`${apiURL}/${mock._id}`)
         })
     });
   });
