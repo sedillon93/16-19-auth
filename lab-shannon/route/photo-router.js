@@ -35,6 +35,13 @@ photoRouter.post(`/photos`, bearerAuthMiddleware, upload.any(), (request, respon
     .catch(next);
 });
 
-photoRouter.get(`/photos/:id`);
+photoRouter.get(`/photos/:id`, bearerAuthMiddleware, (request, response, next) => {
+  if(!request.account){
+    return next(new httpErrors(404, `NOT FOUND`));
+  }
+
+  
+  return response.json(photo);
+});
 
 photoRouter.delete(`/photos/:id`);
