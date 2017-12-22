@@ -71,8 +71,6 @@ describe(`Photo router`, () => {
         .then(mock => {
           tempMock = mock;
           return superagent.get(`${apiURL}/`)
-          .field(`title`, `friend photo`)
-          .attach(`photo`, `${__dirname}/asset/bestfriends.jpg`)
           .then(Promise.reject)
           .catch(response => {
             expect(response.status).toEqual(404);
@@ -87,11 +85,24 @@ describe(`Photo router`, () => {
           tempMock = mock;
           return superagent.get(`${apiURL}/${tempMock.account._id}`)
             .set(`Authorization`, `Bearer thisIsABadToken`)
-            .field(`title`, `friend photo`)
-            .attach(`photo`, `${__dirname}/asset/bestfriends.jpg`)
             .then(Promise.reject)
             .catch(response => {
               expect(response.status).toEqual(401);
+            });
+        });
+    });
+  });
+
+  describe(`DELETE /photos/:id`, () => {
+    test(`DELETE should respond with a 204 status if there are no errors`, () => {
+      let tempMock = null;
+      return photoMockFactory.create()
+        .then(mock => {
+          tempMock = mock;
+          return superagent.delete(`${apiURL}/${tempMock.photo._id}`)
+            .set(`Authorization`, `Bearer ${tempMock.account.token}`)
+            .then(response => {
+              expect(response.status).toEqual(204);
             });
         });
     });
