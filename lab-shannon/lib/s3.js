@@ -17,7 +17,7 @@ s3.upload = (path, key) => {
     .promise()
     .then(response => {
       return fsExtra.remove(path)
-        .then(() => response.location);    // the location is the exact address of the file
+        .then(() => response.Location);    // the location is the exact address of the file
     })
     .catch(error => {
       return fsExtra.remove(path)

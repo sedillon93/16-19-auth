@@ -3,10 +3,9 @@
 const mongoose = require(`mongoose`);
 
 const photoSchema = mongoose.Schema({
-  private: {
-    type: Boolean,
-    required: false,
-    unique: false,
+  title: {
+    type: String,
+    required: true,
   },
   people: {
     type: [String],

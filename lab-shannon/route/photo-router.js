@@ -23,9 +23,10 @@ photoRouter.post(`/photos`, bearerAuthMiddleware, upload.any(), (request, respon
   let key = `${file.filename}.${file.originalname}`;   // remember, these 'file.' are referring to the file we are assigning as request.files[0]
 
   return s3.upload(file.path, key)
-    .then(url => {    // remember that s3.upload returns you the file.Location
+    .then(url => {
+      console.log(url);  // remember that s3.upload returns you the file.Location
       return new Photo({
-        private: request.body.private,
+        title: request.body.title,
         people: request.body.people,
         account: request.account._id,
         url: url,
