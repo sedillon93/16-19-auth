@@ -14,5 +14,5 @@ describe(`Photo router`, () => {
 
   describe(`POST /photos`, () => {
     test()
-  })
-})
+  });
+});
