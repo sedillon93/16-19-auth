@@ -7,7 +7,7 @@ const Photo = require(`../model/photo`);
 
 const s3 = require(`../lib/s3`);
 const multer = require(`multer`);
-const upload = multer({dest: 'uploads/'});
+const upload = multer({dest: `${__dirname}/../temp`});
 
 const photoRouter = module.exports = new Router();
 
@@ -31,7 +31,10 @@ photoRouter.post(`/photos`, bearerAuthMiddleware, upload.any(), (request, respon
         url: url,
       }).save();
     })
-    .then(photo => response.json(photo))
+    .then(photo => {
+      console.log(photo, `is the photo`);
+      return response.json(photo)
+    })
     .catch(next);
 });
 
