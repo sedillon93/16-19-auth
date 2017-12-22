@@ -43,7 +43,7 @@ photoRouter.get(`/photos/:id`, bearerAuthMiddleware, (request, response, next) =
   return Photo.findById(request.params.id)
     .then(photo => {
       if(!photo){
-        throw new httpErrors(404, 404: `NO PHOTO`)
+        throw new httpErrors(404, `404: No photo found`);
       }
 
       return response.json(photo);
@@ -51,4 +51,11 @@ photoRouter.get(`/photos/:id`, bearerAuthMiddleware, (request, response, next) =
     .catch(next);
 });
 
-photoRouter.delete(`/photos/:id`);
+photoRouter.delete(`/photos/:id`, bearerAuthMiddleware, (request, response, next) => {
+  if(!request.account){
+    return next(new httpErrors(404, `404: No account found`));
+  }
+
+  return Photo.findByIdAndRemove(request.params.id)
+    .then()
+});
