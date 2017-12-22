@@ -8,7 +8,7 @@ process.env.MONGODB_URI = `mongodb://localhost/testing`;
 process.env.SECRET_THINGS = `gingersnaps`;
 
 process.env.AWS_BUCKET = `farFarAway`;
-process.env.AWS_ACCESS_KEY = `theMagicWord`;
+process.env.AWS_ACCESS_KEY_ID = `theMagicWord`;
 process.env.AWS_SECRET_ACCESS_KEY = `happyPlace`;
 
 // the awsSDKMock.mock functions just have this signature, that's why they have these arguments- what you're doing, what you're mocking, and what you're using to mock
