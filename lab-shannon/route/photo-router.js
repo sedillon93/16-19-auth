@@ -37,11 +37,18 @@ photoRouter.post(`/photos`, bearerAuthMiddleware, upload.any(), (request, respon
 
 photoRouter.get(`/photos/:id`, bearerAuthMiddleware, (request, response, next) => {
   if(!request.account){
-    return next(new httpErrors(404, `NOT FOUND`));
+    return next(new httpErrors(404, `404: No account found`));
   }
 
-  
-  return response.json(photo);
+  return Photo.findById(request.params.id)
+    .then(photo => {
+      if(!photo){
+        throw new httpErrors(404, 404: `NO PHOTO`)
+      }
+
+      return response.json(photo);
+    })
+    .catch(next);
 });
 
 photoRouter.delete(`/photos/:id`);

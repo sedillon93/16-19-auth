@@ -26,13 +26,13 @@ friendRouter.post(`/friends`, bearerAuthMiddleware, jsonParser, (request, respon
 
 friendRouter.get(`/friends/:id`, bearerAuthMiddleware, (request, response, next) => {
   if(!request.account){
-    return next(new httpErrors(404, `BAD REQUEST`));
+    return next(new httpErrors(404, `404: no account found`));
   }
 
   return Friend.findById(request.params.id)
     .then(friend => {
       if(!friend){
-        throw new httpErrors(404, `BAD REQUEST`);
+        throw new httpErrors(404, `404: no friend found`);
       }
 
       return response.json(friend);
