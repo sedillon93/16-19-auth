@@ -32,7 +32,6 @@ photoRouter.post(`/photos`, bearerAuthMiddleware, upload.any(), (request, respon
       }).save();
     })
     .then(photo => {
-      console.log(photo, `is the photo`);
       return response.json(photo)
     })
     .catch(next);
@@ -58,14 +57,27 @@ photoRouter.delete(`/photos/:id`, bearerAuthMiddleware, (request, response, next
   if(!request.account){
     return next(new httpErrors(404, `404: No account found`));
   }
-
-  return Photo.findByIdAndRemove(request.params.id)
+  return Photo.findById(request.params.id)
     .then(photo => {
-      if(!photo){
-        throw new httpErrors(404, `404: No photo found`);
-      }
+      console.log(photo.url);
+      let photoURL = photo.url.split('/');
+      let key = photoURL[photoURL.length - 1];
+      return s3.remove(key)
+        .then(() => {
 
-      return response.sendStatus(204);
+        })
+        return Photo.findByIdAndRemove(request.params.id)
+        .then(photo => {
+          if(!photo){
+            throw new httpErrors(404, `404: No photo found`);
+          }
+
+          return response.sendStatus(204);
+        });
     })
-    .catch(next);
+    .catch(error => {
+      return Photo.findByIdAndRemove(request.params.id)
+      .then(Promise.reject)
+      .catch(next);
+    });
 });
