@@ -4,7 +4,7 @@ const logger = require(`./logger`);
 const mongoose = require(`mongoose`);
 const express = require(`express`);
 
-const MONGODB_URI = 'heroku_r8pj59cq:stucu22i9hl5kbcrpiotfi7je4@ds135777.mlab.com:35777/heroku_r8pj59cq';
+const MONGODB_URI = 'mongodb://heroku_r8pj59cq:stucu22i9hl5kbcrpiotfi7je4@ds135777.mlab.com:35777/heroku_r8pj59cq';
 const app = express();
 let serverIsOn = false;
 let httpServer = null;
