@@ -1,5 +1,5 @@
 {
-  "name": "lab-shannon",
+  "name": "authorization & authentication lab",
   "version": "1.0.0",
   "description": "Account creation and User authentication practice",
   "main": "index.js",
