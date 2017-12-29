@@ -1,50 +1,56 @@
-![cf](https://i.imgur.com/7v5ASc8.png) Lab 17: Authentication
-======
+## Purpose
+The purpose of this application is to create an account, access the account using basic authorization, access other information as allowed using bearer authorization, and store, retrieve, and delete resources using AWS S3. It is deployed on Heroku and utilizes Travis CI for continuous integration.
 
-## Submission Instructions
-* Work in a fork of this repository
-* Work in a branch on your fork
-* Write all of your code in a directory named `lab-` + `<your name>` **e.g.** `lab-susan`
-* Open a pull request to this repository
-* Submit on canvas a question and observation, how long you spent, and a link to your pull request
+## Set Up
+* Run 'npm install' to install all dependencies
+* Run 'npm i --save jest' to save jest for testing purposes
+* Open a NEW tab in the terminal and run 'npm run dbon' to set up a server connection
+* To test all functions run 'npm test'
 
-## Resources
-* [express docs](http://expressjs.com/en/4x/api.html)
-* [mongoosse guide](http://mongoosejs.com/docs/guide.html)
-* [mongoosse api docs](http://mongoosejs.com/docs/api.html)
+## Routes
+1. /signup
+  * POST: To create an account make a POST request with the required information provided in your account object. You must include the username, email, and password (all Strings) in order to make an account. If information is missing a 400 status will occur. If the username, email, or password are already in use a 409 error will occur.
+  * GET: To retrieve information about a particular account make a GET request with the username and password. If no account is found that matches the username/password combination a 404 error will occur. If an authorization header is not included in the request a 400 error will occur.
 
-## Configuration 
-Configure the root of your repository with the following files and directories. Thoughfully name and organize any aditional configuration or module files.
-* **README.md** - contains documentation
-* **.env** - contains env variables **(should be git ignored)**
-* **.gitignore** - contains a [robust](http://gitignore.io) `.gitignore` file 
-* **.eslintrc** - contains the course linter configuratoin
-* **.eslintignore** - contains the course linter ignore configuration
-* **package.json** - contains npm package config
-  * create a `lint` script for running eslint
-  * create a `test` script for running tests
-  * create a `start` script for running your server
-  * create `dbon` and `dboff` scripts for managing the mongo daemon
-* **db/** - contains mongodb files **(should be git ignored)**
-* **lib/** - contains module definitions
-* **model/** - contains module definitions
-* **route/** - contains module definitions
-* **\_\_test\_\_/** - contains test modules
+2. /friends
+  * POST: To create a friend linked to an account make a POST request with an object containing the required friend information and a valid token in the request authorization header. You must include the friend's first name (a String), age (a Number), occupation (a String), and a list of their favorite things (and array of Strings).  If the account is verified by the token then a new friend will be created associated with the specified account. If no authorization header is present a 400 error will occur. If no account is found with a token matching that in the request a 404 error will occur.
+  * GET: To retrieve information about a specific friend make a GET request with the friend's id included in the query params. If the account is verified by the token and the id provided matches a friend then that friend's information will be retrieved. If the id does not match any friends a 404 error will occur. If no authorization header is present a 400 error will occur. If no account is found with a token matching that in the request a 401 error will occur.
 
-## Feature Tasks  
-For this assignment you will be building a RESTful HTTP server with basic authentication useing express.
+3. /photos
+  * POST: To add an image file and store it make a POST request with the path to the image and an authorization header with a valid token. If an account is verified by the token then a new image will be uploaded and associated with the specified account.  If the token cannot be verified a 401 error will occur. If no authorization header is present a 400 error will occur.
+  * GET: To retrieve a specific image file make a GET request with the image's id and an authorization header with a valid token. If the token is verified and the id provided matches an image then the image information will be retrieved. If there is no image which matches the id a 404 error will occur. If the token cannot be verified a 401 error will occur. If no authorization header is present a 400 error will occur.
+  * DELETE: To delete a specific image file make a DELETE request with the image's id and an authorization header with a valid token. If the token is verified and the id provided matches an image then the image will be deleted from the database and AWS S3 storage. If there is no image which matches the id a 404 error will occur. If the token cannot be verified a 401 error will occur. If no authorization header is present a 400 error will occur.
 
-#### Account
-Create a user `Account` model that keeps track of a username, email, hashed password, and token seed. The model should be able to regenorate tokens using json web token. 
+## Technologies Used
+### For production:
+* ES6
+* Travis CI
+* mLab
+* Heroku
+* node
+* aws-sdk
+* bcrypt
+* body-parser
+* dotenv
+* express
+* fs-extra
+* http-errors
+* jsonwebtoken
+* mongoose
+* multer
 
-#### Server Endpoints
-* `POST /signup` 
-  * pass data as stringifed JSON in the body of a **POST** request to create a new account
-  * on success respond with a 200 status code and an authentication token
-  * on failure due to a bad request send a 400 status code
+### For development:
+* aws-sdk-mock
+* eslint
+* faker
+* jest
+* superagent
+* winston
 
-## Tests
-* POST should test for 200, 400, and 409 (if any keys are unique)
+## License
+MIT
 
-## Documentation
-In the README.md write documention for starting your server and makeing requests to each endpoint it provides. The documentaion should describe how the server would respond to valid and invalid requests.
+## Credits
+* Vinicio Vladimir Sanchez Trejo & the Code Fellows curriculum provided the base .eslintrc, .eslintignore, and .gitignore files.
+
+* My fellow 401JS classmates and the instructional staff for help problem solving and debugging.
