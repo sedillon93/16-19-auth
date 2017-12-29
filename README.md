@@ -1,5 +1,5 @@
 ## Purpose
-The purpose of this application is to create an account, access the account using basic authorization, access other information as allowed using bearer authorization, and store, retrieve, and delete resources using AWS S3.
+The purpose of this application is to create an account, access the account using basic authorization, access other information as allowed using bearer authorization, and store, retrieve, and delete resources using AWS S3. It is deployed on Heroku and utilizes Travis CI for continuous integration.
 
 ## Set Up
 * Run 'npm install' to install all dependencies
@@ -24,6 +24,9 @@ The purpose of this application is to create an account, access the account usin
 ## Technologies Used
 ### For production:
 * ES6
+* Travis CI
+* mLab
+* Heroku
 * node
 * aws-sdk
 * bcrypt

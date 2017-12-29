@@ -59,20 +59,17 @@ photoRouter.delete(`/photos/:id`, bearerAuthMiddleware, (request, response, next
   }
   return Photo.findById(request.params.id)
     .then(photo => {
-      console.log(photo.url);
       let photoURL = photo.url.split('/');
       let key = photoURL[photoURL.length - 1];
       return s3.remove(key)
         .then(() => {
-
-        })
-        return Photo.findByIdAndRemove(request.params.id)
-        .then(photo => {
-          if(!photo){
-            throw new httpErrors(404, `404: No photo found`);
-          }
-
-          return response.sendStatus(204);
+          return Photo.findByIdAndRemove(request.params.id)
+          .then(photo => {
+            if(!photo){
+              throw new httpErrors(404, `404: No photo found`);
+            }
+            return response.sendStatus(204);
+          });
         });
     })
     .catch(error => {
