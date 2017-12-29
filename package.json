@@ -34,5 +34,8 @@
     "jsonwebtoken": "^8.1.0",
     "mongoose": "^4.13.7",
     "multer": "^1.3.0"
+  },
+  "engines": {
+    "node": "8.4.0"
   }
 }
