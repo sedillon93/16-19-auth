@@ -37,7 +37,7 @@ describe(`Photo router`, () => {
         .catch(response => {
           expect(response.status).toEqual(400);
         });
-      });
+    });
 
     test(`POST should respond with a 401 status if there is a problem with the token (missing or incorrect)`, () => {
       return superagent.post(`${apiURL}`)
@@ -48,7 +48,7 @@ describe(`Photo router`, () => {
         .catch(response => {
           expect(response.status).toEqual(401);
         });
-      });
+    });
   });
 
   describe(`GET /photos/:id`, () => {
@@ -71,10 +71,10 @@ describe(`Photo router`, () => {
         .then(mock => {
           tempMock = mock;
           return superagent.get(`${apiURL}/`)
-          .then(Promise.reject)
-          .catch(response => {
-            expect(response.status).toEqual(404);
-          });
+            .then(Promise.reject)
+            .catch(response => {
+              expect(response.status).toEqual(404);
+            });
         });
     });
 

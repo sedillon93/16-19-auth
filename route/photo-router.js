@@ -32,7 +32,7 @@ photoRouter.post(`/photos`, bearerAuthMiddleware, upload.any(), (request, respon
       }).save();
     })
     .then(photo => {
-      return response.json(photo)
+      return response.json(photo);
     })
     .catch(next);
 });
@@ -64,17 +64,17 @@ photoRouter.delete(`/photos/:id`, bearerAuthMiddleware, (request, response, next
       return s3.remove(key)
         .then(() => {
           return Photo.findByIdAndRemove(request.params.id)
-          .then(photo => {
-            if(!photo){
-              throw new httpErrors(404, `404: No photo found`);
-            }
-            return response.sendStatus(204);
-          });
+            .then(photo => {
+              if(!photo){
+                throw new httpErrors(404, `404: No photo found`);
+              }
+              return response.sendStatus(204);
+            });
         });
     })
     .catch(error => {
       return Photo.findByIdAndRemove(request.params.id)
-      .then(Promise.reject)
-      .catch(next);
+        .then(Promise.reject)
+        .catch(next);
     });
 });
