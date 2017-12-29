@@ -4,7 +4,7 @@ const faker = require(`faker`);
 const awsSDKMock = require(`aws-sdk-mock`);
 
 process.env.PORT = 3000;
-process.env.MONGODB_URI = `mongodb://heroku_r8pj59cq:stucu22i9hl5kbcrpiotfi7je4@ds135777.mlab.com:35777/heroku_r8pj59cq`;
+// process.env.MONGODB_URI = `mongodb://localhost/testing`;
 process.env.SECRET_THINGS = `gingersnaps`;
 
 process.env.AWS_BUCKET = `farFarAway`;
