@@ -132,3 +132,6 @@
 {"message":"NOT FOUND","stack":"NotFoundError: NOT FOUND\n    at Account.findOne.then.account (/Users/shannondillon/codefellows/401js/lab/day17/16-19-auth/lib/basic-auth-middleware.js:24:19)\n    at <anonymous>\n    at process._tickDomainCallback (internal/process/next_tick.js:228:7)","name":"NotFoundError","level":"info","timestamp":"2017-12-29T05:50:26.325Z"}
 {"level":"info","message":"Responding with a 404 status and message: NOT FOUND","timestamp":"2017-12-29T05:50:26.325Z"}
 {"level":"info","message":"Turning the server off","timestamp":"2017-12-29T05:50:26.328Z"}
+{"level":"info","message":"Server is listening on port undefined","timestamp":"2017-12-29T06:01:35.706Z"}
+{"level":"info","message":"Server is listening on port 3000","timestamp":"2017-12-29T06:18:44.159Z"}
+{"level":"info","message":"Processing : POST on : /signup","timestamp":"2017-12-29T06:18:49.370Z"}
